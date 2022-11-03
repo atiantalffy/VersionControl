@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Week06
 {
-    public class Ballfactory : IToyFactory
+    public class CarFactory : IToyFactory
     {
         public Toy CreateNew()
         {
-            return new Ball();
+            return new Car();
         }
     }
 }
