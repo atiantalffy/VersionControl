@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Week06.Entities
+namespace Week06
 {
-    internal class Ball : Label
+    public class Ball : Label
     {
         public Ball()
         {
@@ -30,7 +30,7 @@ namespace Week06.Entities
 
         public void MoveBall()
         {
-            Left = +1;
+            Left += 1;
         }
     }
 }

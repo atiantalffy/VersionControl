@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Week06.Entities
+namespace Week06
 {
-    internal class Ballfactory
+    public class Ballfactory
     {
         public Ball CreateNew()
         {
