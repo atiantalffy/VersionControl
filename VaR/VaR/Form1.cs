@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,12 @@ namespace VaR
     public partial class Form1 : Form
     {
         PortfolioEntities context = new PortfolioEntities();
+        
         List<Tick> Ticks;
 
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+
+        List<decimal> rendezettNyereségek = new List<decimal>();
 
         public Form1()
         {
@@ -40,6 +44,7 @@ namespace VaR
                                       orderby x
                                       select x)
                             .ToList();
+            rendezettNyereségek = nyereségekRendezve;
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
         }
 
@@ -67,5 +72,18 @@ namespace VaR
             return value;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+            {
+                sw.WriteLine("Időszak, Nyereség");
+                for (int i = 0; i < rendezettNyereségek.Count(); i++)
+                {
+                    sw.WriteLine(i + 1.ToString() + ", " + rendezettNyereségek[i].ToString());
+                }
+            }
+        }
     }
 }
