@@ -1,10 +1,14 @@
 ﻿using NUnit.Framework;
+using Moq;
+using NUnit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnitTestExample.Controllers;
+using UnitTestExample.Test;
+using System.Text.RegularExpressions;
 
 namespace UnitTestExample.Test
 {
@@ -19,25 +23,24 @@ namespace UnitTestExample.Test
         ]
         public void TestValidateEmail(string email, bool expectedResult)
         {
-            //Arrange
             var accountController = new AccountController();
-            //Act
             var actualResult = accountController.ValidateEmail(email);
-            //Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
 
         [
             Test,
-            TestCase("AbcdAbcd", false),
             TestCase("ABCD1234", false),
+            TestCase("Ab1234", false),
+            TestCase("Abcd1234", true),
             TestCase("abcd1234", false),
-            TestCase("Abcd123", false),
-            TestCase("Abcd1234", true)
-        ]
-        public void TestValidatePassword()
+            TestCase("abcdABCD", false)
+         ]
+        public void TestValidatePassword(string password, bool expectedResult)
         {
-
+            var accountController = new AccountController();
+            var actualResult = accountController.ValidatePassword(password);
+            Assert.AreEqual(expectedResult, actualResult);
         }
     }
 }
